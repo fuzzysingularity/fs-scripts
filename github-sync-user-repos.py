@@ -94,12 +94,12 @@ for org, reps in repos.iteritems():
         else:
             if private:
                 print('Cloning private repo: %s' % (repo.name))
-                print 'git clone git@github.com:%s/%s.git' % (repo.owner.login, repo.name)
-                os.system('git clone git@github.com:%s/%s.git' % (repo.owner.login, repo.name))
+                print 'git clone ssh://git@github.com/%s/%s.git' % (repo.owner.login, repo.name)
+                os.system('git clone ssh://git@github.com/%s/%s.git' % (repo.owner.login, repo.name))
             else:
                 print('Cloning repo: %s' % (repo.name))
-                print 'git clone git@github.com:%s/%s.git' % (repo.owner.login, repo.name)
-                os.system('git clone git@github.com:%s/%s.git' % (repo.owner.login, repo.name))
+                print 'git clone ssh://git@github.com/%s/%s.git' % (repo.owner.login, repo.name)
+                os.system('git clone ssh://git@github.com/%s/%s.git' % (repo.owner.login, repo.name))
         
         # return to base
         os.chdir('..')
