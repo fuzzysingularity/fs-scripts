@@ -30,8 +30,7 @@ Inspired by Gisty (http://github.com/swdyh/gisty).
 import os
 from commands import getoutput as cmd
 
-from pygithub3.github import Github
-
+from github3 import login
 
 # GitHub configurations
 GITHUB_USER = cmd('git config github.user')
@@ -40,11 +39,9 @@ GITHUB_TOKEN = cmd('git config github.token')
 # API Object
 print '======================================================'
 print 'GitHub Username: %s' % GITHUB_USER
-print 'GitHub Token: %s' % GITHUB_TOKEN
 print '======================================================\n'
 
-github = Github(username=GITHUB_USER, token=GITHUB_TOKEN)
-
+github = login(username=GITHUB_USER, token=GITHUB_TOKEN)
 
 # repo slots
 repos = {}
@@ -56,15 +53,15 @@ repos['public'] = []
 repos['forks'] = []
 
 # Collect GitHub repos via API
-for repo in github.repos.list().all():
+for repo in github.iter_repos():
 
     if repo.private:
         repos['private'].append(repo)
     elif repo.fork:
         repos['forks'].append(repo)
-    elif 'mirror' in repo.description.lower():
-        # mirrors owned by self if mirror in description...
-        repos['mirrors'].append(repo)
+    # elif 'mirror' in repo.description.lower():
+    #     # mirrors owned by self if mirror in description...
+    #     repos['mirrors'].append(repo)
     else:
         repos['public'].append(repo)
 
